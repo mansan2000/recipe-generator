@@ -37,6 +37,7 @@ def process():
         INSERT INTO recipes (user, recipe) VALUES (?, ?)
     ''', (user, recipe))
 
+
     # Commit the changes and close the connection
     conn.commit()
     conn.close()
