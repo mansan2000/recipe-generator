@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recipe Processing</title>
+</head>
+<body>
+    <h1>Recipe Processing</h1>
+    <form id="recipeForm">
+        <label for="user">User:</label>
+        <input type="text" id="user" name="user" required>
+        <br>
+        <label for="instructions">Recipe Instructions:</label>
+        <textarea id="instructions" name="instructions" required></textarea>
+        <br>
+        <input type="button" value="Submit" onclick="submitRecipe()">
+    </form>
+
+    <script>
+        function submitRecipe() {
+            const user = document.getElementById('user').value;
+            const instructions = document.getElementById('instructions').value;
+
+            // Create the data object
+            const data = {
+                user: user,
+                instructions: instructions
+            };
+
+            // Send the POST request to the server
+            fetch('http://127.0.0.1:5000/process', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.text())
+            .then(message => {
+                alert(message);
+                // Optionally, you can redirect the user to another page or perform additional actions.
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Handle the error gracefully if needed.
+            });
+        }
+    </script>
+</body>
+</html>
