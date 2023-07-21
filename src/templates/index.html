@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recipe Processing</title>
+</head>
+<body>
+<h1>Recipe Processing</h1>
+<form method="post" action="/process">
+    <label for="user">User:</label>
+    <input type="text" id="user" name="user" required><br><br>
+
+    <label for="instructions">Instructions:</label>
+    <textarea id="instructions" name="instructions" rows="5" required></textarea><br><br>
+
+    <button type="submit">Process Recipe</button>
+</form>
+
+<div id="response">
+    {% if message %}
+        {{ message }}
+    {% endif %}
+</div>
+</body>
+</html>
