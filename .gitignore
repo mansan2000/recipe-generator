@@ -1,4 +1,4 @@
 .idea
 __pycache__/
 /venv
-API/database.db
+src/database.db
