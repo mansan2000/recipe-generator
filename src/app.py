@@ -99,7 +99,7 @@ def signup_form():
         
         
         # new user added to database
-        new_user = Recipe(first=first, last=last, username=username, password=password)
+        new_user = Recipe(first=first, last=last, username=username, password=password, recipe=None, prompt=None)
         db.session.add(new_user)
         db.session.commit()
 
