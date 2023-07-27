@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+
+<div class="container mt-3">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" href="/">Log In</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="signup.html">Sign Up</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Home</a>
+    </li>
+    
+  </ul>
+</div>
+
+
+<!-- Section: Design Block -->
+<section class="text-center text-lg-start">
+  <style>
+    .cascading-right {
+      margin-right: -50px;
+    }
+
+    @media (max-width: 991.98px) {
+      .cascading-right {
+        margin-right: 0;
+      }
+    }
+  </style>
+
+  <div class="container py-4">
+    <div class="row g-0 align-items-center">
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <div class="card cascading-right" style="
+              background: hsla(0, 0%, 100%, 0.55);
+              backdrop-filter: blur(30px);
+              ">
+          <div class="card-body p-5 shadow-5 text-center">
+            <h2 class="fw-bold mb-5">Log in to Your Account</h2>
+            <form method="POST" action="/">
+
+
+              <!-- Username input -->
+              <div class="form-outline mb-4">
+                <input type="username" id="form3Example3" class="form-control" />
+                <label class="form-label" for="form3Example3">Username</label>
+              </div>
+
+              <!-- Password input -->
+              <div class="form-outline mb-4">
+                <input type="password" id="form3Example4" class="form-control" />
+                <label class="form-label" for="form3Example4">Password</label>
+              </div>
+
+
+
+              <!-- Submit button -->
+              <button type="submit" class="btn btn-primary btn-block mb-4">
+                Log In
+              </button>
+
+              <p class="text-center text-muted mt-5 mb-0">Don't have an account?<a href="signup.html"
+                  class="fw-bold text-body"><u>Register Today!</u></a></p>
+
+
+
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <img
+          src="https://s2.qwant.com/thumbr/474x354/d/f/0617d37e9a076f4431775dbf0c3e560e70a15a084b0252fb92a5b0d719d1ec/th.jpg?u=https%3A%2F%2Ftse.mm.bing.net%2Fth%3Fid%3DOIP.i5Yx6SWyxlzFSg_-hpg2uQHaFi%26pid%3DApi&q=0&b=1&p=0&a=0"
+          class="w-100 rounded-4 shadow-4" alt="" />
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+
+</html>
+
+{% endblock %}
