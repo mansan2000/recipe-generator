@@ -32,16 +32,7 @@ app = create_app()
 #     return render_template("login.html")
 
 
-def create_connection():
-    conn = None
-    try:
-        conn = sqlite3.connect('database/database.db')
-        print("Connection to SQLite DB successful")
-        return conn
-    except Error as e:
-        print(f"The error '{e}' occurred while connecting to the SQLite database")
 
-    return conn
 
 def check_user_credentials(username, password):
     user = Recipe.query.filter_by(username=username).first()
@@ -63,7 +54,7 @@ def process_form():
     if not check_username(username):
         return render_template('needtosignup.html')
     elif not check_user_credentials(username, password):
-        return render_template('pass_match.html')
+        return render_template('try_again.html')
     else:
         return render_template('secretpage.html')
 
@@ -90,7 +81,7 @@ def signup_form():
 
           # Check if passwords match
         if confirm_password != password:
-            return render_template('pass_match.html')
+            return render_template('try_again.html')
 
         # # Check if the password meets the requirements
         requirements_met = validate_password(password)
@@ -123,6 +114,7 @@ def thankyou():
 #     insert_row(user, recipe, instructions)
 
 #     return 'Data inserted successfully.'
+
 
 
 if __name__ == '__main__':
