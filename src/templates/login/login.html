@@ -5,22 +5,6 @@
 
 
 
-<div class="container mt-3">
-  <ul class="nav nav-tabs">
-    <li class="nav-item">
-      <a class="nav-link active" href="/">Log In</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="signup.html">Sign Up</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Home</a>
-    </li>
-    
-  </ul>
-</div>
-
-
 <!-- Section: Design Block -->
 <section class="text-center text-lg-start">
   <style>
@@ -44,19 +28,19 @@
               ">
           <div class="card-body p-5 shadow-5 text-center">
             <h2 class="fw-bold mb-5">Log in to Your Account</h2>
-            <form method="POST" action="/">
+            <form method="POST" action="/check-credentials">
 
 
               <!-- Username input -->
               <div class="form-outline mb-4">
-                <input type="username" id="form3Example3" class="form-control" />
-                <label class="form-label" for="form3Example3">Username</label>
+                <input type="text" id="username" name="username" class="form-control" />
+                <label class="form-label" for="username">Username</label>
               </div>
 
               <!-- Password input -->
               <div class="form-outline mb-4">
-                <input type="password" id="form3Example4" class="form-control" />
-                <label class="form-label" for="form3Example4">Password</label>
+                <input type="password" id="password" name="password" class="form-control" />
+                <label class="form-label" for="password">Password</label>
               </div>
 
 
@@ -66,8 +50,10 @@
                 Log In
               </button>
 
-              <p class="text-center text-muted mt-5 mb-0">Don't have an account?<a href="signup.html"
+              <p class="text-center text-muted mt-5 mb-0">Don't have an account?<a href="signup"
                   class="fw-bold text-body"><u>Register Today!</u></a></p>
+              <p style="color: red">{{incorrect}}</p>
+
 
 
 

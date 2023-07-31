@@ -1,24 +1,41 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Recipe Processing</title>
-</head>
-<body>
-<h1>Recipe Processing</h1>
-<form method="post" action="/process">
-    <label for="user">User:</label>
-    <input type="text" id="user" name="user" required><br><br>
+{% extends "base.html" %}
 
-    <label for="instructions">Instructions:</label>
-    <textarea id="instructions" name="instructions" rows="5" required></textarea><br><br>
+{% block content %}
 
-    <button type="submit">Process Recipe</button>
-</form>
+<section class="text-center text-lg-start">
+  <div class="container py-4">
+    <div class="row g-0 align-items-center">
 
-<div id="response">
-    {% if message %}
-        {{ message }}
-    {% endif %}
-</div>
-</body>
-</html>
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <div class="card cascading-right" style="
+              background: hsla(0, 0%, 100%, 0.55);
+              backdrop-filter: blur(30px);
+              ">
+          <div class="card-body p-5 shadow-5 text-center">
+            <h2 class="fw-bold mb-5">Welcome to Our App</h2>
+            <p class="lead mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed suscipit mollis
+              justo, sit amet iaculis erat blandit at.</p>
+            <p class="lead mb-4">Ut sed luctus orci, vitae varius purus. Nulla facilisi. Quisque auctor risus sit
+              amet
+              dui auctor, a elementum arcu tristique.</p>
+
+            <div class="d-grid gap-2">
+              <a href="login" class="btn btn-primary btn-lg mb-3">Log In</a>
+              <a href="signup" class="btn btn-outline-primary btn-lg">Sign Up</a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <img
+          src="https://s2.qwant.com/thumbr/474x354/d/f/0617d37e9a076f4431775dbf0c3e560e70a15a084b0252fb92a5b0d719d1ec/th.jpg?u=https%3A%2F%2Ftse.mm.bing.net%2Fth%3Fid%3DOIP.i5Yx6SWyxlzFSg_-hpg2uQHaFi%26pid%3DApi&q=0&b=1&p=0&a=0"
+          class="w-100 rounded-4 shadow-4" alt="" />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}

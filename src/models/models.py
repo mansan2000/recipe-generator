@@ -17,20 +17,30 @@ class Recipe(db.Model):
     __tablename__ = "recipes"
 
     id = db.Column(db.Integer, primary_key=True)
-    first = db.Column(db.Text)
-    last = db.Column(db.Text)
-    password = db.Column(db.Text)
     username = db.Column(db.Text)
     recipe = db.Column(db.Text)
     prompt = db.Column(db.Text)
 
-    def __init__(self, username, first, last, password, recipe, prompt):
+    def __init__(self, username, recipe, prompt):
         self.username = username
-        self.first = first
-        self.last = last
-        self.password = password
         self.recipe = recipe
         self.prompt = prompt
 
-    def __repr__(self):
-        return f"User {self.username} recipe {self.recipe}"
+
+class User(db.Model):
+    __tablename__ = "users"
+
+    id = db.Column(db.Integer, primary_key=True)
+    firstName = db.Column(db.Text)
+    lastName = db.Column(db.Text)
+    username = db.Column(db.Text, unique=True)
+    password = db.Column(db.Text)
+    allergies = db.Column(db.Text)
+
+    def __init__(self, firstName, lastName, username, password, allergies):
+        self.firstName = firstName
+        self.lastName = lastName
+        self.username = username
+        self.password = password
+        self.allergies = allergies
+
