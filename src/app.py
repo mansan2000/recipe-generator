@@ -44,6 +44,13 @@ def create_connection():
     return conn
 
 
+@app.route('/logout')
+def logout():
+    # Clear the session when the user logs out
+    session.clear()
+    return redirect(url_for('login'))
+
+
 @app.route('/')
 def home():
     return render_template("index.html")
