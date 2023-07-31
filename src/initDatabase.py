@@ -1,10 +1,11 @@
 from app import app
 from database.database import db
-from models.models import Recipe
+from models.models import Recipe, User
 
 with app.app_context():
     db.create_all()
-    recipe1 = Recipe("mansan", "cook it yourself", "cook this for me?", "blank", "blank", "blank")
+    recipe1 = Recipe("test","test","test")
+    user1 = User("test", "test", "test", "test", "test")
 
     db.session.add_all([recipe1])
 

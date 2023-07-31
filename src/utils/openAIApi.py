@@ -44,7 +44,7 @@ def get_recipe(recipe_text):
     return recipes
 
 # The way to call recipes
-recipe_data = recipeSelectionwant("cake", "eggs", "I am allergic to, nuts.")
-recipes = get_recipe(recipe_data)
-print(recipes.keys())
-print(recipes.values())
+# recipe_data = recipeSelectionwant("cake", "eggs", "I am allergic to, nuts.")
+# recipes = get_recipe(recipe_data)
+# print(recipes.keys())
+# print(recipes.values())
