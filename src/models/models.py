@@ -18,13 +18,13 @@ class Recipe(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.Text)
-    recipe = db.Column(db.Text)
-    prompt = db.Column(db.Text)
+    recipe_name = db.Column(db.Text)
+    instructions = db.Column(db.Text)
 
-    def __init__(self, username, recipe, prompt):
+    def __init__(self, username, recipe_name, instructions):
         self.username = username
-        self.recipe = recipe
-        self.prompt = prompt
+        self.recipe_name = recipe_name
+        self.instructions = instructions
 
 
 class User(db.Model):

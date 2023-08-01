@@ -5,7 +5,7 @@ from models.models import Recipe, db, User
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify #Added jsonify 7/31, don't know how to check version to add to txt -B
 from flask_session import Session
 import sqlite3
-from utils.helper_funcs import validate_password
+from utils.helper_funcs import validate_password, get_saved_recipes_from_database
 
 from flask_migrate import Migrate
 
@@ -28,7 +28,7 @@ def create_app():
 app = create_app()
 
 app.config['SESSION_TYPE'] = 'filesystem'
-app.config['SECRET_KEY'] = '1029384756'  # Change this to a random secret key
+app.config['SECRET_KEY'] = '1029384756'
 Session(app)
 
 
@@ -129,7 +129,12 @@ def generate_recipes_want():
     data = request.json
     wanted = data.get('wanted')
     ranOut = data.get('ranOut')
-    allergies = " I am allergic to nuts."  # TODO: Change to get from database
+    allRows = User.query.all()
+    allergies = ""  # TODO: Change to get from database
+    for user in allRows:
+        if user.username == session['user']:
+            allergies = user.allergies
+
 
     recipe_data = recipeSelectionwant(wanted, ranOut, allergies)
     recipes = get_recipe(recipe_data)
@@ -159,10 +164,37 @@ def view_results():
     # Get the generated recipes from the session
     recipes = session.get('generated_recipes')
     # Remove the recipes from the session to avoid showing them on the next visit
-    session.pop('generated_recipes', None)
+    # session.pop('generated_recipes', None)
 
-    return render_template("/account/results.html", recipes=recipes)
+    if recipes is not None:
+        print("there are recipes")
+        print(recipes)
+        return render_template("/account/results.html", recipes=recipes)
+    return render_template("/account/results.html")
 
+
+@app.route('/save_recipe', methods=['POST'])
+def save_recipe():
+    if request.headers['Content-Type'] != 'application/json':
+        return jsonify({"message": "Invalid Content-Type"}), 415
+
+    data = request.get_json()
+    title = data.get('title')
+    ingredients = data.get('ingredients')
+
+    new_recipe = Recipe(session['user'], title, ingredients)
+    db.session.add(new_recipe)
+    db.session.commit()
+
+    return jsonify({"message": "Recipe saved successfully!"})
+
+
+@app.route("/saved-recipes")
+def saved_recipes():
+    recipes = get_saved_recipes_from_database(session['user'])
+    saved_recipes_data = get_recipe(recipes)
+
+    return render_template("/account/saved_recipes.html", saved_recipes_data = saved_recipes_data)
 
 if __name__ == '__main__':
     app.run()
