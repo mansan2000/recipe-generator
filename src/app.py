@@ -2,14 +2,14 @@ import os
 from aifc import Error
 
 from models.models import Recipe, db, User
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify #Added jsonify 7/31, don't know how to check version to add to txt -B
 from flask_session import Session
 import sqlite3
 from utils.helper_funcs import validate_password
 
 from flask_migrate import Migrate
 
-from utils.openAIApi import get_recipe
+from utils.openAIApi import get_recipe, recipeSelectionwant, recipeSelectionhave
 from utils.helper_funcs import insert_row
 
 
@@ -119,6 +119,45 @@ def signup_form():
         db.session.commit()
 
     return render_template('/login/signup.html')
+
+@app.route('/generate-recipes-want', methods=['POST'])
+def generate_recipes_want():
+    data = request.json
+    wanted = data.get('wanted')
+    ranOut = data.get('ranOut')
+    allergies = " I am allergic to nuts."  # TODO: Change to get from database
+
+    recipe_data = recipeSelectionwant(wanted, ranOut, allergies)
+    recipes = get_recipe(recipe_data)
+
+    session['generated_recipes'] = recipes
+
+    return jsonify({'success': True})
+
+@app.route('/generate-recipes-have', methods=['POST'])
+def generate_recipes_have():
+    data = request.json
+    have = data.get('have')
+    allergies = " I am allergic to nuts."  # TODO: Change to get from database
+
+    recipe_data = recipeSelectionhave(have, allergies)
+    recipes = get_recipe(recipe_data)
+
+    session['generated_recipes'] = recipes
+
+    return jsonify({'success': True})
+
+@app.route('/results')
+def view_results():
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+
+    # Get the generated recipes from the session
+    recipes = session.get('generated_recipes')
+    # Remove the recipes from the session to avoid showing them on the next visit
+    session.pop('generated_recipes', None)
+
+    return render_template("/account/results.html", recipes=recipes)
 
 
 if __name__ == '__main__':
