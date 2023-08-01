@@ -1,16 +1,16 @@
 import openai
 
 def GPTGenerator(message):
-    openai.api_key = ('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')
-    # Emannuel's key "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"
+    openai.api_key = ('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')
+    # Emannuel's key ^^^
     completion = openai.ChatCompletion.create(
-          model='gpt-3.5-turbo',
-          messages=[
-              {'role': 'user', 'content': message}
-          ],
-          temperature=0
-      )
-    return(completion['choices'][0]['message']['content'])  # Change how you access the message content
+        model='gpt-3.5-turbo',
+        messages=[
+            {'role': 'user', 'content': message}
+        ],
+        temperature=0
+    )
+    return(completion['choices'][0]['message']['content'])
 
 #Selection: Path of what type of recipe user needs
 #allergies: Concatenated string of food allergies
@@ -18,10 +18,14 @@ def GPTGenerator(message):
 
 encase = "Each idea of recipies starting from the Title, then the ingredients, finished off with the instructions. " \
          "EACH TITLE MUST start and end with a $ e.x $Cookies$, $Beans$, etc.')"
-idea = ", give me 3 ideas for something else I could make that is similar to what I wanted but without what I ran out of. "
+wantidea = ", give me 3 ideas for something else I could make that is similar to what I wanted but without what I ran out of. "
 
+haveidea = ". Based on this list of ingredients give me 3 ideas for something I could make with them. "
 def recipeSelectionwant(wanted, ranout, allergies):
-        return GPTGenerator("I wanted to make a " + wanted + "but I ran out of " + ranout + allergies + idea + encase)
+    return GPTGenerator("I wanted to make a " + wanted + "but I ran out of " + ranout + allergies + wantidea + encase)
+
+def recipeSelectionhave(have, allergies):
+    return GPTGenerator(have + haveidea + allergies + encase)
 
 def get_recipe(recipe_text):
     recipes = {}
