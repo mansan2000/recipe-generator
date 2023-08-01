@@ -23,17 +23,19 @@
 
 
 <div class="container mt-3">
-  <ul class="nav nav-tabs">
+  <ul class="nav nav-tabs d-flex">
     <li class="nav-item">
       <a class="nav-link active" href="/generate-recipes">Generate Recipes</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/view-recipes">View Your Recipes</a>
+      <a class="nav-link " href="/results">View Recipes</a>
     </li>
-    <li class="nav-item ml-auto">
+    <li class="nav-item">
+      <a class="nav-link" href="/saved-recipes">Saved Recipes</a>
+    </li>
+    <li class="ml-auto">
       <a class="nav-link" href="/logout">Logout</a>
     </li>
-
   </ul>
 </div>
 
@@ -50,6 +52,12 @@
         margin-right: 0;
       }
     }
+
+  .ml-auto {
+    margin-left: auto;
+    font-weight: bolder;
+    font-size: large;
+  }
   </style>
 
   <div class="container py-4">

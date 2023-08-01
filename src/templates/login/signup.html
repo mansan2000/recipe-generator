@@ -14,6 +14,7 @@
                 margin-right: 0;
             }
         }
+
         ul {
             list-style-type: none;
         }
@@ -28,7 +29,7 @@
             ">
                     <div class="card-body p-5 shadow-5 text-center">
                         <h2 class="fw-bold mb-5">Register Today!</h2>
-                        <form method="POST" action="/signup" onsubmit="return validatePassword();">
+                        <form method="POST" action="/signup">
                             <!-- 2 column grid layout with text inputs for the first and last names -->
                             <div class="row">
                                 <div class="col-md-6 mb-2">
@@ -76,10 +77,9 @@
                                 </div>
 
 
-                                <label for="sel2" name="allergies" class="form-label">Allergies (hold shift to select
-                                    more than
-                                    one):</label>
-                                <select multiple class="form-select" id="sel2" name="sellist2">
+                                <label for="sel2" name="allergies" class="form-label">Allergies (hold Ctrl or Cmd to select
+                                    more than one):</label>
+                                <select multiple class="form-select" id="sel2" name="allergies">
                                     <option>Tree Nuts</option>
                                     <option>Eggs</option>
                                     <option>Shellfish</option>
@@ -102,21 +102,22 @@
                         </form>
                         <br>
                         <div style="color: #9C1A1C">
-                        {% if error_type == 'requirements' %}
-                        <p>Password does not meet the requirements:( <br> Double check that it meets the requirements
-                            below:</p>
-                        <ul>
-                            <li>Must have an upper case letter</li>
-                            <li>Must have a lowercase letter</li>
-                            <li>Must end in a number</li>
-                            <li>Must be at least 8 characters</li>
-                            <li>Password must match</li>
-                        </ul>
-                        {% elif error_type == 'unique' %}
-                        <p>That username is not available please try again</p>
-                        {% elif error_type == 'match' %}
-                        <p>Passwords do not match please try again</p>
-                        {% endif %}
+                            {% if error_type == 'requirements' %}
+                            <p>Password does not meet the requirements:( <br> Double check that it meets the
+                                requirements
+                                below:</p>
+                            <ul>
+                                <li>Must have an upper case letter</li>
+                                <li>Must have a lowercase letter</li>
+                                <li>Must end in a number</li>
+                                <li>Must be at least 8 characters</li>
+                                <li>Password must match</li>
+                            </ul>
+                            {% elif error_type == 'unique' %}
+                            <p>That username is not available please try again</p>
+                            {% elif error_type == 'match' %}
+                            <p>Passwords do not match please try again</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

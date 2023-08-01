@@ -13,6 +13,11 @@
   h2 {
     color: white;
   }
+  .ml-auto {
+    margin-left: auto;
+    font-weight: bolder;
+    font-size: large;
+  }
 </style>
 
 <div class="container mt-3">
@@ -21,7 +26,10 @@
       <a class="nav-link" href="/generate-recipes">Generate Recipes</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link active" href="/results">View Your Recipes</a>
+      <a class="nav-link active" href="/results">View Recipes</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/saved-recipes">Saved Recipes</a>
     </li>
     <li class="nav-item ml-auto">
       <a class="nav-link" href="/logout">Logout</a>
@@ -33,30 +41,74 @@
 <section class="text-center text-lg-start">
   <div class="container py-4">
     <h2 class="fw-bold mb-3">Generated Recipes</h2>
-    {% for title, recipe in recipes.items() %}
-    <div class="card cascading-right mb-4" style="background: hsla(0, 0%, 100%, 0.55); backdrop-filter: blur(30px);">
-      <div class="card-body p-3 shadow-5 text-center">
-        <h3 class="fw-bold">{{ title }}</h3>
-        <h4 class="fw-bold mb-3">Ingredients:</h4>
-        <p>{{ recipe.Ingredients }}</p>
-        <button class="btn btn-primary" onclick="saveRecipe(this)">Save Recipe</button>
+    {% if recipes != undefined %}
+    <form id="recipeForm">
+      {% for title, recipe in recipes.items() %}
+      <div class="card cascading-right mb-4" style="background: hsla(0, 0%, 100%, 0.55); backdrop-filter: blur(30px);">
+        <div class="card-body p-3 shadow-5 text-center">
+          <h3 class="fw-bold">{{ title }}</h3>
+          <h4 class="fw-bold mb-3">Ingredients:</h4>
+          <p>{{ recipe.Ingredients }}</p>
+          <button type="button" class="btn btn-primary" onclick="saveRecipe('{{ title }}')">Save Recipe</button>
+        </div>
       </div>
-    </div>
-    {% endfor %}
+      {% endfor %}
+    </form>
+    {% endif %}
   </div>
 </section>
 
 <script>
-  function saveRecipe(button) {
-    // Get the card
-    const card = button.closest('.card');
+function saveRecipe(title) {
+  // Disable the button
+  const button = event.target;
+  button.disabled = true;
 
-    // Hide the card
-    card.style.display = 'none';
+  // Get the corresponding ingredients
+  const cardBody = button.closest('.card-body');
+  const ingredients = cardBody.querySelector('p').textContent;
 
-    // TODO: Add code to save the recipe to the database
-    console.log("Need to save to the database:", card.querySelector('h3').innerText);
-  }
+  // Create an XMLHttpRequest object
+  const xhr = new XMLHttpRequest();
+
+  // Configure the request
+  xhr.open('POST', '/save_recipe', true);
+  xhr.setRequestHeader('Content-type', 'application/json');
+
+  // Handle the response
+  xhr.onload = function () {
+    if (xhr.status === 200) {
+      console.log(xhr.responseText); // Log the response from the Flask route
+      console.log('Recipe saved successfully!');
+      // Perform any other desired action, like displaying a success message
+    } else {
+      console.error('Failed to save recipe.');
+      // Re-enable the button in case of failure
+      button.disabled = false;
+    }
+  };
+
+  // Handle network errors
+  xhr.onerror = function () {
+    console.error('Network error occurred.');
+    // Re-enable the button in case of failure
+    button.disabled = false;
+  };
+
+  // Send the data to the server
+  const data = JSON.stringify({ title: title, ingredients: ingredients });
+  xhr.send(data);
+}
+  // function saveRecipe(button) {
+  //   // Get the card
+  //   const card = button.closest('.card');
+  //
+  //   // Hide the card
+  //   card.style.display = 'none';
+  //
+  //   // TODO: Add code to save the recipe to the database
+  //   console.log("Need to save to the database:", card.querySelector('h3').innerText);
+  // }
 </script>
 
 {% endblock %}
