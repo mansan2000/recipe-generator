@@ -85,6 +85,7 @@ def checkCredentials():
         print(username, password)
         if user.password == password and user.username == username:
             session['logged_in'] = True
+            session['user'] = username
             return render_template("/account/generate.html")
     return render_template("/login/login.html", incorrect="Invalid Credentials please try again")
 
@@ -97,7 +98,10 @@ def signup_form():
         username = request.form.get('username')
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
-        allergies = request.form.get('allergies')
+        selected_allergies = request.form.getlist('allergies')
+        allergies = ', '.join(selected_allergies)
+
+        print("Selected allergies:", selected_allergies)
 
         if confirm_password != password:
             return render_template("login/signup.html", error_type="match")
