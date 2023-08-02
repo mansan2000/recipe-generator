@@ -97,7 +97,7 @@ def signup_form():
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
         selected_allergies = request.form.getlist('allergies')
-        allergies = ', '.join(selected_allergies)
+        allergies = ','.join(selected_allergies)
 
 
         if confirm_password != password:
@@ -212,6 +212,45 @@ def saved_recipes():
     saved_recipes_data = get_recipe(recipes)
 
     return render_template("/account/saved_recipes.html", saved_recipes_data = saved_recipes_data)
+
+
+@app.route("/profile")
+def profile():
+    allRows = User.query.all()
+    for user in allRows:
+        if user.username == session['user']:
+            name = user.firstName + " " + user.lastName
+            username = user.username
+            allergies = user.allergies.split(',')
+
+    return render_template("/account/profile.html", name=name, username=username, allergies=allergies)
+
+
+@app.route('/editAllergies', methods=['POST'])
+def edit_allergies():
+    try:
+        data = request.get_json()
+        new_allergy = data.get('allergy')
+        allRows = User.query.all()
+        current_allergies = []
+        for user in allRows:
+            if user.username == session['user']:
+                current_allergies = user.allergies.split(',')
+                if new_allergy in current_allergies:
+                    current_allergies.remove(new_allergy)
+                elif new_allergy not in current_allergies:
+                    current_allergies.append(new_allergy)
+                user.allergies = ','.join(current_allergies)
+                print(user.allergies)
+        db.session.commit()
+
+
+        response_data = {'message': 'Allergy added successfully!', 'allergies': new_allergy}
+        return jsonify(response_data), 200
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 
 if __name__ == '__main__':
     app.run()
