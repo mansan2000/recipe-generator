@@ -69,7 +69,7 @@ function saveRecipe(title) {
 
   // Get the corresponding ingredients
   const cardBody = button.closest('.card-body');
-  const ingredients = cardBody.querySelector('p').textContent;
+  const ingredients = cardBody.querySelector('pre').textContent;
 
   // Create an XMLHttpRequest object
   const xhr = new XMLHttpRequest();
