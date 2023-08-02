@@ -1,7 +1,7 @@
 import openai
 
 def GPTGenerator(message):
-    openai.api_key = ('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')
+    openai.api_key = ('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')
     # Emannuel's key ^^^
     completion = openai.ChatCompletion.create(
         model='gpt-3.5-turbo',

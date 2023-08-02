@@ -81,8 +81,6 @@ def checkCredentials():
     password = request.form.get('password')
 
     for user in User.query.all():
-        print(user.password, user.username)
-        print(username, password)
         if user.password == password and user.username == username:
             session['logged_in'] = True
             session['user'] = username
@@ -101,7 +99,6 @@ def signup_form():
         selected_allergies = request.form.getlist('allergies')
         allergies = ', '.join(selected_allergies)
 
-        print("Selected allergies:", selected_allergies)
 
         if confirm_password != password:
             return render_template("login/signup.html", error_type="match")
@@ -121,6 +118,7 @@ def signup_form():
         new_user = User(first, last, username, password, allergies)
         db.session.add(new_user)
         db.session.commit()
+        return render_template('/login/login.html')
 
     return render_template('/login/signup.html')
 
@@ -130,7 +128,7 @@ def generate_recipes_want():
     wanted = data.get('wanted')
     ranOut = data.get('ranOut')
     allRows = User.query.all()
-    allergies = ""  # TODO: Change to get from database
+    allergies = ""
     for user in allRows:
         if user.username == session['user']:
             allergies = user.allergies
@@ -147,8 +145,11 @@ def generate_recipes_want():
 def generate_recipes_have():
     data = request.json
     have = data.get('have')
-    allergies = " I am allergic to nuts."  # TODO: Change to get from database
-
+    allRows = User.query.all()
+    allergies = ""
+    for user in allRows:
+        if user.username == session['user']:
+            allergies = user.allergies
     recipe_data = recipeSelectionhave(have, allergies)
     recipes = get_recipe(recipe_data)
 
@@ -167,8 +168,6 @@ def view_results():
     # session.pop('generated_recipes', None)
 
     if recipes is not None:
-        print("there are recipes")
-        print(recipes)
         return render_template("/account/results.html", recipes=recipes)
     return render_template("/account/results.html")
 
@@ -182,11 +181,29 @@ def save_recipe():
     title = data.get('title')
     ingredients = data.get('ingredients')
 
-    new_recipe = Recipe(session['user'], title, ingredients)
-    db.session.add(new_recipe)
-    db.session.commit()
+    if not Recipe.query.filter_by(recipe_name=title).first():
+        new_recipe = Recipe(session['user'], title, ingredients)
+        db.session.add(new_recipe)
+        db.session.commit()
 
     return jsonify({"message": "Recipe saved successfully!"})
+
+
+@app.route('/delete-recipe', methods=['POST'])
+def delete_recipe():
+    if request.headers['Content-Type'] != 'application/json':
+        return jsonify({"message": "Invalid Content-Type"}), 415
+
+    data = request.get_json()
+    title = data.get('title')
+
+    recipe = Recipe.query.filter_by(recipe_name=title).first()
+    if recipe:
+        db.session.delete(recipe)
+        db.session.commit()
+        return jsonify({"message": "Recipe removed successfully!"})
+    else:
+        return jsonify({"message": "Recipe not found"}), 404
 
 
 @app.route("/saved-recipes")
