@@ -18,6 +18,9 @@
     font-weight: bolder;
     font-size: large;
   }
+  .fw-bold {
+    font-size: 2em;
+  }
 </style>
 
 <div class="container mt-3">
@@ -42,17 +45,47 @@
   <div class="container py-4">
     <h2 class="fw-bold mb-3">Saved Recipes</h2>
     <form id="savedRecipeForm">
+      {% if saved_recipes_data != None %}
       {% for title, recipe in saved_recipes_data.items() %}
       <div class="card cascading-right mb-4" style="background: hsla(0, 0%, 100%, 0.55); backdrop-filter: blur(30px);">
         <div class="card-body p-3 shadow-5 text-center">
-          <h3 class="fw-bold">{{ title }}</h3>
-          <h4 class="fw-bold mb-3">Ingredients:</h4>
-          <p>{{ recipe.Ingredients }}</p>
+          <pre class="fw-bold">{{ title }}</pre>
+          <p>Ingredients:</p>
+          <pre>{{ recipe.Ingredients }}</pre>
+          <button type="button" class="btn btn-primary" onclick="deleteRecipe('{{ title }}')">Delete</button>
         </div>
       </div>
       {% endfor %}
+      {% endif %}
     </form>
   </div>
 </section>
+
+
+<script>
+function deleteRecipe(title) {
+  const data = {
+    title: title
+  };
+
+  fetch('/delete-recipe', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => {
+    if (response.ok) {
+      window.location.reload(true);
+
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    alert('An error occurred while trying to delete the recipe.');
+  });
+}
+</script>
 
 {% endblock %}
