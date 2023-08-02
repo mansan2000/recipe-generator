@@ -5,6 +5,8 @@
 
 <section class="text-center text-lg-start">
     <style>
+
+        
         .cascading-right {
             margin-right: -50px;
         }
@@ -24,9 +26,9 @@
         <div class="row g-0 align-items-center">
             <div class="col-lg-6 mb-5 mb-lg-0">
                 <div class="card cascading-right" style="
-            background: hsla(0, 0%, 100%, 0.55);
-            backdrop-filter: blur(30px);
-            ">
+              background-color: hsla(0, 0%, 100%, 0.55);
+              backdrop-filter: blur(30px);
+              ">
                     <div class="card-body p-5 shadow-5 text-center">
                         <h2 class="fw-bold mb-5">Register Today!</h2>
                         <form method="POST" action="/signup">
@@ -80,17 +82,16 @@
                                 <label for="sel2" name="allergies" class="form-label">Allergies (hold Ctrl or Cmd to select
                                     more than one):</label>
                                 <select multiple class="form-select" id="sel2" name="allergies">
-                                    <option>Tree Nuts</option>
-                                    <option>Eggs</option>
-                                    <option>Shellfish</option>
-                                    <option>Milk</option>
                                     <option>Soy</option>
+                                    <option>Eggs</option>
+                                    <option>Milk</option>
                                     <option>Gluten</option>
+                                    <option>Peanuts</option>
+                                    <option>Tree Nuts</option>
+                                    <option>Shellfish</option>
                                 </select>
                             </div>
 
-
-                            <!-- Submit button -->
                             <button type="submit" class="btn btn-primary btn-block mb-4">
                                 Sign up
                             </button>
