@@ -1,142 +1,145 @@
 {% extends "base.html" %}
 
 {% block content %}
+<head>
+    <title>User Profile</title>
+</head>
 
 <style>
-   body {
-    background-image: url("../../static/slider-image2.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-  }
+    body {
+        background-image: url("../../static/slider-image2.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
 
-  h2 {
-    color: white;
-  }
-  .ml-auto {
-    margin-left: auto;
-    font-weight: bolder;
-    font-size: large;
-  }
-  .fw-bold {
-    font-size: 2em;
-  }
-  ul.no-bullets {
-    list-style: none;
-    padding-left: 0;
-  }
+    h2 {
+        color: white;
+    }
+    .ml-auto {
+        margin-left: auto;
+        font-weight: bolder;
+        font-size: large;
+    }
+    .fw-bold {
+        font-size: 2em;
+    }
+    ul.no-bullets {
+        list-style: none;
+        padding-left: 0;
+    }
 
-  .mt-3 {
-    color:rgba(7, 66, 244, 0.945);
-    font-size: 20px;
-    letter-spacing: 1px;
-  }
+    .mt-3 {
+        color:rgba(7, 66, 244, 0.945);
+        font-size: 20px;
+        letter-spacing: 1px;
+    }
 
 </style>
 
 
 <div class="container mt-3">
-  <ul class="nav nav-tabs d-flex">
-    <li class="nav-item">
-      <a class="nav-link" href="/generate-recipes">Generate Recipes</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/results">View Recipes</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/saved-recipes">Saved Recipes</a>
-    </li>
-    <li class="ml-auto">
-      <a class="nav-link active" href="/profile">Profile</a>
-    </li>
-  </ul>
+    <ul class="nav nav-tabs d-flex">
+        <li class="nav-item">
+            <a class="nav-link" href="/generate-recipes">Generate Recipes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/results">View Recipes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/saved-recipes">Saved Recipes</a>
+        </li>
+        <li class="ml-auto">
+            <a class="nav-link active" href="/profile">Profile</a>
+        </li>
+    </ul>
 </div>
 
 <!-- Section: Profile Block -->
 <section class="text-center">
-<div class="container mt-4">
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <div class="card" style="background: hsla(0, 0%, 100%, 0.55); backdrop-filter: blur(30px);">
-        <div class="card-body">
-          <h3 class="card-title">User Profile</h3>
-          <hr>
-          <div class="mb-3">
-            <h5>Username:</h5>
-            <p>{{username}}</p>
-          </div>
-          <div class="mb-3">
-            <h5>Name:</h5>
-            <p>{{name}}</p>
-          </div>
-          <div class="mb-3">
-            <h5>Allergies:</h5>
-            <ul class="no-bullets">
-              {% for allergy in allergies %}
-              <li>{{ allergy }}</li>
-              {% endfor %}
-            </ul>
-            <div class="mb-3">
-              <button id="editAllergies" class="btn btn-primary" onclick="toggleEditForm()" style="font-size: small">Edit Allergies</button>
-              <form id="editForm" style="display: none;">
-<!--                <label for="allergyInput">Enter Allergy:</label>-->
-                <input type="text" id="allergyInput" name="allergyInput">
-                <br>
-                <button type="button" class="btn btn-primary" onclick="editAllergy()" style="font-size: small; margin-top: 7px">confirm</button>
-                <p style="font-size: smaller">Enter in an allergy, if it is already listed it will be removed, if it is not listed it will be added</p>
-              </form>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card" style="background: hsla(0, 0%, 100%, 0.55); backdrop-filter: blur(30px);">
+                    <div class="card-body">
+                        <h3 class="card-title">User Profile</h3>
+                        <hr>
+                        <div class="mb-3">
+                            <h5>Username:</h5>
+                            <p>{{username}}</p>
+                        </div>
+                        <div class="mb-3">
+                            <h5>Name:</h5>
+                            <p>{{name}}</p>
+                        </div>
+                        <div class="mb-3">
+                            <h5>Allergies:</h5>
+                            <ul class="no-bullets">
+                                {% for allergy in allergies %}
+                                <li>{{ allergy }}</li>
+                                {% endfor %}
+                            </ul>
+                            <div class="mb-3">
+                                <button id="editAllergies" class="btn btn-primary" onclick="toggleEditForm()" style="font-size: small">Edit Allergies</button>
+                                <form id="editForm" style="display: none;">
+                                    <!--                <label for="allergyInput">Enter Allergy:</label>-->
+                                    <input type="text" id="allergyInput" name="allergyInput">
+                                    <br>
+                                    <button type="button" class="btn btn-primary" onclick="editAllergy()" style="font-size: small; margin-top: 7px">confirm</button>
+                                    <p style="font-size: smaller">Enter in an allergy, if it is already listed it will be removed, if it is not listed it will be added</p>
+                                </form>
+                            </div>
+                            <br>
+                            <div class="mb-3">
+                                <a href="/logout" style="color: #485F6E">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <br>
-            <div class="mb-3">
-              <a href="/logout" style="color: #485F6E">Logout</a>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
-</div>
 </section>
 
 
 <script>
-  function toggleEditForm() {
-    const editForm = document.getElementById('editForm');
-    const editButton = document.getElementById("editAllergies")
-    if (editForm.style.display === 'none') {
-      editForm.style.display = 'block';
-      editButton.style.display = "none"
-    } else {
-      editForm.style.display = 'none';
-      editButton.style.display = "block"
+    function toggleEditForm() {
+        const editForm = document.getElementById('editForm');
+        const editButton = document.getElementById("editAllergies")
+        if (editForm.style.display === 'none') {
+            editForm.style.display = 'block';
+            editButton.style.display = "none"
+        } else {
+            editForm.style.display = 'none';
+            editButton.style.display = "block"
+        }
     }
-  }
 
-  function editAllergy() {
-  const allergyInput = document.getElementById('allergyInput');
-  const newAllergy = allergyInput.value.trim();
+    function editAllergy() {
+        const allergyInput = document.getElementById('allergyInput');
+        const newAllergy = allergyInput.value.trim();
 
-  if (newAllergy !== '') {
-    const data = { allergy: newAllergy };
+        if (newAllergy !== '') {
+            const data = { allergy: newAllergy };
 
-    fetch('/editAllergies', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    .then(response => {
-      if (response.ok) {
-        window.location.reload()
-      } else {
-      }
-    })
-    .catch(error => {
-      console.error('Network error occurred.', error);
-    });
-  }
-}
+            fetch('/editAllergies', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.reload()
+                    } else {
+                    }
+                })
+                .catch(error => {
+                    console.error('Network error occurred.', error);
+                });
+        }
+    }
 
 </script>
 

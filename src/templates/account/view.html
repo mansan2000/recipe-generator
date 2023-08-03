@@ -1,119 +1,122 @@
 {% extends "base.html" %}
 
 {% block content %}
+<head>
+    <title>View Recipes</title>
+</head>
 
 <style>
-  body {
-    background-image: url("../../static/slider-image2.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-  }
+    body {
+        background-image: url("../../static/slider-image2.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
 
-  h2 {
-    color: white;
-  }
-  .ml-auto {
-    margin-left: auto;
-    font-weight: bolder;
-    font-size: large;
-  }
-  .fw-bold {
-    font-size: 2em;
-  }
-  .mt-3 {
-    color:rgba(7, 66, 244, 0.945);
-    font-size: 20px;
-    letter-spacing: 1px;
-  }
+    h2 {
+        color: white;
+    }
+    .ml-auto {
+        margin-left: auto;
+        font-weight: bolder;
+        font-size: large;
+    }
+    .fw-bold {
+        font-size: 2em;
+    }
+    .mt-3 {
+        color:rgba(7, 66, 244, 0.945);
+        font-size: 20px;
+        letter-spacing: 1px;
+    }
 
 </style>
 
 
 <div class="container mt-3">
-  <ul class="nav nav-tabs d-flex">
-    <li class="nav-item">
-      <a class="nav-link" href="/generate-recipes">Generate Recipes</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link active" href="/results">View Recipes</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/saved-recipes">Saved Recipes</a>
-    </li>
-    <li class="ml-auto">
-      <a class="nav-link" href="/profile">Profile</a>
-    </li>
-  </ul>
+    <ul class="nav nav-tabs d-flex">
+        <li class="nav-item">
+            <a class="nav-link" href="/generate-recipes">Generate Recipes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/results">View Recipes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/saved-recipes">Saved Recipes</a>
+        </li>
+        <li class="ml-auto">
+            <a class="nav-link" href="/profile">Profile</a>
+        </li>
+    </ul>
 </div>
 
 
 <!-- Section: Design Block -->
 <section class="text-center text-lg-start">
-  <style>
-    .cascading-right {
-      margin-right: -50px;
-    }
+    <style>
+        .cascading-right {
+            margin-right: -50px;
+        }
 
-    @media (max-width: 991.98px) {
-      .cascading-right {
-        margin-right: 0;
-      }
-    }
-  </style>
+        @media (max-width: 991.98px) {
+            .cascading-right {
+                margin-right: 0;
+            }
+        }
+    </style>
 
-  <div class="container py-4">
-    <div class="row g-0 align-items-center">
-<!--      <div class="col-lg-6 mb-5 mb-lg-0">-->
-<!--        <div class="card cascading-right" style="-->
-<!--              background: hsla(0, 0%, 100%, 0.55);-->
-<!--              backdrop-filter: blur(30px);-->
-<!--              ">-->
-<!--          <div class="card-body p-5 shadow-5 text-center">-->
-<!--&lt;!&ndash;            <h2 class="fw-bold mb-5">Log in to Your Account</h2>&ndash;&gt;-->
-<!--&lt;!&ndash;            <form method="POST" action="/check-credentials">&ndash;&gt;-->
-
-
-<!--&lt;!&ndash;              &lt;!&ndash; Username input &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;              <div class="form-outline mb-4">&ndash;&gt;-->
-<!--&lt;!&ndash;                <input type="text" id="username" name="username" class="form-control" />&ndash;&gt;-->
-<!--&lt;!&ndash;                <label class="form-label" for="username">Username</label>&ndash;&gt;-->
-<!--&lt;!&ndash;              </div>&ndash;&gt;-->
-
-<!--&lt;!&ndash;              &lt;!&ndash; Password input &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;              <div class="form-outline mb-4">&ndash;&gt;-->
-<!--&lt;!&ndash;                <input type="password" id="password" name="password" class="form-control" />&ndash;&gt;-->
-<!--&lt;!&ndash;                <label class="form-label" for="password">Password</label>&ndash;&gt;-->
-<!--&lt;!&ndash;              </div>&ndash;&gt;-->
+    <div class="container py-4">
+        <div class="row g-0 align-items-center">
+            <!--      <div class="col-lg-6 mb-5 mb-lg-0">-->
+            <!--        <div class="card cascading-right" style="-->
+            <!--              background: hsla(0, 0%, 100%, 0.55);-->
+            <!--              backdrop-filter: blur(30px);-->
+            <!--              ">-->
+            <!--          <div class="card-body p-5 shadow-5 text-center">-->
+            <!--&lt;!&ndash;            <h2 class="fw-bold mb-5">Log in to Your Account</h2>&ndash;&gt;-->
+            <!--&lt;!&ndash;            <form method="POST" action="/check-credentials">&ndash;&gt;-->
 
 
+            <!--&lt;!&ndash;              &lt;!&ndash; Username input &ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;              <div class="form-outline mb-4">&ndash;&gt;-->
+            <!--&lt;!&ndash;                <input type="text" id="username" name="username" class="form-control" />&ndash;&gt;-->
+            <!--&lt;!&ndash;                <label class="form-label" for="username">Username</label>&ndash;&gt;-->
+            <!--&lt;!&ndash;              </div>&ndash;&gt;-->
 
-<!--&lt;!&ndash;              &lt;!&ndash; Submit button &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;              <button type="submit" class="btn btn-primary btn-block mb-4">&ndash;&gt;-->
-<!--&lt;!&ndash;                Log In&ndash;&gt;-->
-<!--&lt;!&ndash;              </button>&ndash;&gt;-->
-
-<!--&lt;!&ndash;              <p class="text-center text-muted mt-5 mb-0">Don't have an account?<a href="signup"&ndash;&gt;-->
-<!--&lt;!&ndash;                  class="fw-bold text-body"><u>Register Today!</u></a></p>&ndash;&gt;-->
-<!--&lt;!&ndash;              <p style="color: red">{{incorrect}}</p>&ndash;&gt;-->
+            <!--&lt;!&ndash;              &lt;!&ndash; Password input &ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;              <div class="form-outline mb-4">&ndash;&gt;-->
+            <!--&lt;!&ndash;                <input type="password" id="password" name="password" class="form-control" />&ndash;&gt;-->
+            <!--&lt;!&ndash;                <label class="form-label" for="password">Password</label>&ndash;&gt;-->
+            <!--&lt;!&ndash;              </div>&ndash;&gt;-->
 
 
 
+            <!--&lt;!&ndash;              &lt;!&ndash; Submit button &ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;              <button type="submit" class="btn btn-primary btn-block mb-4">&ndash;&gt;-->
+            <!--&lt;!&ndash;                Log In&ndash;&gt;-->
+            <!--&lt;!&ndash;              </button>&ndash;&gt;-->
 
-<!--&lt;!&ndash;            </form>&ndash;&gt;-->
-<!--          </div>-->
-<!--        </div>-->
-      </div>
+            <!--&lt;!&ndash;              <p class="text-center text-muted mt-5 mb-0">Don't have an account?<a href="signup"&ndash;&gt;-->
+            <!--&lt;!&ndash;                  class="fw-bold text-body"><u>Register Today!</u></a></p>&ndash;&gt;-->
+            <!--&lt;!&ndash;              <p style="color: red">{{incorrect}}</p>&ndash;&gt;-->
 
 
 
-      <div class="col-lg-6 mb-5 mb-lg-0">
-        <!-- <img
-          src="https://s2.qwant.com/thumbr/474x354/d/f/0617d37e9a076f4431775dbf0c3e560e70a15a084b0252fb92a5b0d719d1ec/th.jpg?u=https%3A%2F%2Ftse.mm.bing.net%2Fth%3Fid%3DOIP.i5Yx6SWyxlzFSg_-hpg2uQHaFi%26pid%3DApi&q=0&b=1&p=0&a=0"
-          class="w-100 rounded-4 shadow-4" alt="" /> -->
-      </div>
+
+            <!--&lt;!&ndash;            </form>&ndash;&gt;-->
+            <!--          </div>-->
+            <!--        </div>-->
+        </div>
+
+
+
+        <div class="col-lg-6 mb-5 mb-lg-0">
+            <!-- <img
+              src="https://s2.qwant.com/thumbr/474x354/d/f/0617d37e9a076f4431775dbf0c3e560e70a15a084b0252fb92a5b0d719d1ec/th.jpg?u=https%3A%2F%2Ftse.mm.bing.net%2Fth%3Fid%3DOIP.i5Yx6SWyxlzFSg_-hpg2uQHaFi%26pid%3DApi&q=0&b=1&p=0&a=0"
+              class="w-100 rounded-4 shadow-4" alt="" /> -->
+        </div>
     </div>
-  </div>
+    </div>
 </section>
 </body>
 
