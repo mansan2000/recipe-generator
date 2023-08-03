@@ -7,7 +7,7 @@
 
 1. Clone the repository to your local machine if you don't already have a copy locally using the following command:
 
-> ```git clone https://github.com/your-username/project-name.git```
+> ```git clone git@github.com:mansan2000/recipe-generator.git```
 
 2. Navigate to the project directory:
 
@@ -38,3 +38,11 @@ Now that you have activated the virtual environment, you should see (venv) in yo
 > ```pip install -r requirements.txt```
 
 This will install all the necessary packages and their specific versions as specified in the requirements.txt file.
+
+7. Next run the init database file to create the local database that you will be using
+
+>  ```python initDatabase.py```
+
+8. Now you can run the application, open the url that flask gives in the terminal and the application is up and running 
+
+> ```python app.py```

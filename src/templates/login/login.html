@@ -3,80 +3,75 @@
 {% block content %}
 
 <head>
-  <title>Login</title>
+    <title>Login</title>
 </head>
 
 
-
-<!-- Section: Design Block -->
 <section class="text-center text-lg-start">
-  <style>
+    <style>
 
 
-    .cascading-right {
-      margin-right: -50px;
+        .cascading-right {
+            margin-right: -50px;
 
-    }
+        }
 
-    @media (max-width: 991.98px) {
-      .cascading-right {
-        margin-right: 0;
-      }
-    }
-  </style>
+        @media (max-width: 991.98px) {
+            .cascading-right {
+                margin-right: 0;
+            }
+        }
+    </style>
 
-  <div class="container py-4" style="background-color: hsla(0, 0%, 100%, 0.55);">
-    <div class="row g-0 align-items-center">
-      <div class="col-lg-6 mb-5 mb-lg-0">
-        <div class="card cascading-right" style="
+    <div class="container py-4" style="background-color: hsla(0, 0%, 100%, 0.55);">
+        <div class="row g-0 align-items-center">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <div class="card cascading-right" style="
               background: hsla(0, 0%, 100%, 0.55);
               backdrop-filter: blur(30px);
               ">
-          <div class="card-body p-5 shadow-5 text-center">
-            <h2 class="fw-bold mb-5">Log in to Your Account</h2>
-            <form method="POST" action="/check-credentials">
+                    <div class="card-body p-5 shadow-5 text-center">
+                        <h2 class="fw-bold mb-5">Log in to Your Account</h2>
+                        <form method="POST" action="/check-credentials">
 
 
-              <!-- Username input -->
-              <div class="form-outline mb-4">
-                <input type="text" id="username" name="username" class="form-control" />
-                <label class="form-label" for="username">Username</label>
-              </div>
+                            <!-- Username input -->
+                            <div class="form-outline mb-4">
+                                <input type="text" id="username" name="username" class="form-control"/>
+                                <label class="form-label" for="username">Username</label>
+                            </div>
 
-              <!-- Password input -->
-              <div class="form-outline mb-4">
-                <input type="password" id="password" name="password" class="form-control" />
-                <label class="form-label" for="password">Password</label>
-              </div>
-
-
-
-              <!-- Submit button -->
-              <button type="submit" class="btn btn-primary btn-block mb-4">
-                Log In
-              </button>
-
-              <p class="text-center text-muted mt-5 mb-0">Don't have an account?<a href="signup"
-                                                                                   class="fw-bold text-body"><u>Register Today!</u></a></p>
-              <p style="color: red">{{incorrect}}</p>
+                            <!-- Password input -->
+                            <div class="form-outline mb-4">
+                                <input type="password" id="password" name="password" class="form-control"/>
+                                <label class="form-label" for="password">Password</label>
+                            </div>
 
 
+                            <!-- Submit button -->
+                            <button type="submit" class="btn btn-primary btn-block mb-4">
+                                Log In
+                            </button>
+
+                            <p class="text-center text-muted mt-5 mb-0">Don't have an account?<a href="signup"
+                                                                                                 class="fw-bold text-body"><u>Register
+                                Today!</u></a></p>
+                            <p style="color: red">{{incorrect}}</p>
 
 
-            </form>
-          </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <img
+                        src="../../static/Food.png"
+                        class="w-100 rounded-4 shadow-4" alt=""/>
+            </div>
         </div>
-      </div>
-
-
-
-      <div class="col-lg-6 mb-5 mb-lg-0">
-        <img
-                src="../../static/Food.png"
-                class="w-100 rounded-4 shadow-4" alt="" />
-      </div>
     </div>
-  </div>
 </section>
 </body>
 

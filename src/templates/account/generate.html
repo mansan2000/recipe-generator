@@ -2,274 +2,245 @@
 
 {% block content %}
 <head>
-  <title>Generate Recipes</title>
+    <title>Generate Recipes</title>
 </head>
 
 <body>
 
 <style>
-  body {
-    background-image: url("../../static/slider-image2.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-  }
+    body {
+        background-image: url("../../static/slider-image2.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
 
-  h2 {
-    color: white;
-  }
-  label {
-    color: white;
-  }
-  p {
-    color: white;
-  }
+    h2 {
+        color: white;
+    }
 
-  .mt-3 {
-    color:rgba(7, 66, 244, 0.945);
-    font-size: 20px;
-    letter-spacing: 1px;
-  }
+    label {
+        color: white;
+    }
 
-  #popupOverlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 9999;
-  }
-  #popup {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #17181e;
-    color: white;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  }
+    p {
+        color: white;
+    }
 
-  #popup h3 {
-    color: white;
-  }
+    .mt-3 {
+        color: rgba(7, 66, 244, 0.945);
+        font-size: 20px;
+        letter-spacing: 1px;
+    }
 
-  #popup button {
-    background-color: rgba(7, 66, 244, 0.945);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-  }
+    #popupOverlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9999;
+    }
+
+    #popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #17181e;
+        color: white;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    #popup h3 {
+        color: white;
+    }
+
+    #popup button {
+        background-color: rgba(7, 66, 244, 0.945);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
 
 </style>
 
 
 <div class="container mt-3">
-  <ul class="nav nav-tabs d-flex">
-    <li class="nav-item">
-      <a class="nav-link active" href="/generate-recipes">Generate Recipes</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/results">View Recipes</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/saved-recipes">Saved Recipes</a>
-    </li>
-    <li class="ml-auto">
-      <a class="nav-link" href="/profile">Profile</a>
-    </li>
-  </ul>
+    <ul class="nav nav-tabs d-flex">
+        <li class="nav-item">
+            <a class="nav-link active" href="/generate-recipes">Generate Recipes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/results">View Recipes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/saved-recipes">Saved Recipes</a>
+        </li>
+        <li class="ml-auto">
+            <a class="nav-link" href="/profile">Profile</a>
+        </li>
+    </ul>
 </div>
 
 
 <!-- Section: Design Block -->
 <div class="text-center text-lg-start">
-  <style>
-    .cascading-right {
-      margin-right: -50px;
-    }
+    <style>
+        .cascading-right {
+            margin-right: -50px;
+        }
 
-    @media (max-width: 991.98px) {
-      .cascading-right {
-        margin-right: 0;
-      }
-    }
+        @media (max-width: 991.98px) {
+            .cascading-right {
+                margin-right: 0;
+            }
+        }
 
-    .ml-auto {
-      margin-left: auto;
-      font-weight: bolder;
-      font-size: large;
-    }
-  </style>
+        .ml-auto {
+            margin-left: auto;
+            font-weight: bolder;
+            font-size: large;
+        }
+    </style>
 
-  <div class="container py-4">
-    <div class="row g-0 align-items-center">
-      <!--      <div class="col-lg-6 mb-5 mb-lg-0">-->
-      <!--        <div class="card cascading-right" style="-->
-      <!--              background: hsla(0, 0%, 100%, 0.55);-->
-      <!--              backdrop-filter: blur(30px);-->
-      <!--              ">-->
-      <!--          <div class="card-body p-5 shadow-5 text-center">-->
-      <!--&lt;!&ndash;            <h2 class="fw-bold mb-5">Log in to Your Account</h2>&ndash;&gt;-->
-      <!--&lt;!&ndash;            <form method="POST" action="/check-credentials">&ndash;&gt;-->
+    <div class="container py-4">
+        <div class="row g-0 align-items-center">
+        </div>
 
+        <h2 class="fw-bold mb-3">Generate Recipes</h2>
 
-      <!--&lt;!&ndash;              &lt;!&ndash; Username input &ndash;&gt;&ndash;&gt;-->
-      <!--&lt;!&ndash;              <div class="form-outline mb-4">&ndash;&gt;-->
-      <!--&lt;!&ndash;                <input type="text" id="username" name="username" class="form-control" />&ndash;&gt;-->
-      <!--&lt;!&ndash;                <label class="form-label" for="username">Username</label>&ndash;&gt;-->
-      <!--&lt;!&ndash;              </div>&ndash;&gt;-->
+        <!-- Text boxes for recipe inputs -->
+        <div id="wantRecipeBox">
+            <input type="text" id="wantedRecipe" class="form-control mb-3" placeholder="Wanted Recipe (e.g., cake)">
+            <input type="text" id="ranOutRecipe" class="form-control mb-3"
+                   placeholder="Missing Ingredients (e.g., eggs)">
+        </div>
 
-      <!--&lt;!&ndash;              &lt;!&ndash; Password input &ndash;&gt;&ndash;&gt;-->
-      <!--&lt;!&ndash;              <div class="form-outline mb-4">&ndash;&gt;-->
-      <!--&lt;!&ndash;                <input type="password" id="password" name="password" class="form-control" />&ndash;&gt;-->
-      <!--&lt;!&ndash;                <label class="form-label" for="password">Password</label>&ndash;&gt;-->
-      <!--&lt;!&ndash;              </div>&ndash;&gt;-->
+        <div id="haveRecipeBox" style="display: none;">
+            <input type="text" id="haveRecipe" class="form-control mb-3"
+                   placeholder="Ingredients you have (e.g., flour, sugar, etc.)">
+        </div>
 
+        <!-- Toggle button to switch between recipeSelectionwant and recipeSelectionhave -->
+        <div class="form-check form-switch mb-3">
+            <input class="form-check-input" type="checkbox" id="toggleSelection">
+            <label class="form-check-label" for="toggleSelection">Recipe Selection Type</label>
+        </div>
 
+        <button class="btn btn-primary mb-3" onclick="submitRecipe('want')" id="submitBtnWant">Submit</button>
 
-      <!--&lt;!&ndash;              &lt;!&ndash; Submit button &ndash;&gt;&ndash;&gt;-->
-      <!--&lt;!&ndash;              <button type="submit" class="btn btn-primary btn-block mb-4">&ndash;&gt;-->
-      <!--&lt;!&ndash;                Log In&ndash;&gt;-->
-      <!--&lt;!&ndash;              </button>&ndash;&gt;-->
+        <button class="btn btn-primary mb-3" onclick="submitRecipe('have')" id="submitBtnHave" style="display: none;">
+            Submit
+        </button>
 
-      <!--&lt;!&ndash;              <p class="text-center text-muted mt-5 mb-0">Don't have an account?<a href="signup"&ndash;&gt;-->
-      <!--&lt;!&ndash;                  class="fw-bold text-body"><u>Register Today!</u></a></p>&ndash;&gt;-->
-      <!--&lt;!&ndash;              <p style="color: red">{{incorrect}}</p>&ndash;&gt;-->
+        <button class="btn btn-primary mb-3" onclick="showPopup()">Explanation</button>
 
-
-
-
-      <!--&lt;!&ndash;            </form>&ndash;&gt;-->
-      <!--          </div>-->
-      <!--        </div>-->
+        <div style="display: none;" id="loadingDiv">
+            <p>Loading...</p>
+            <div style="width:100%;height:0;padding-bottom:100%;position:relative; text-align: center;">
+                <img src="../../static/whisking.gif" alt="Whisking"
+                     style="width: 40%; height: 40%; margin: 0 auto; position: absolute; top: 10%; left: 50%; transform: translate(-50%, -50%);"/>
+            </div>
+        </div>
     </div>
-
-    <h2 class="fw-bold mb-3">Generate Recipes</h2>
-
-    <!-- Text boxes for recipe inputs -->
-    <div id="wantRecipeBox">
-      <input type="text" id="wantedRecipe" class="form-control mb-3" placeholder="Wanted Recipe (e.g., cake)">
-      <input type="text" id="ranOutRecipe" class="form-control mb-3" placeholder="Missing Ingredients (e.g., eggs)">
-    </div>
-
-    <div id="haveRecipeBox" style="display: none;">
-      <input type="text" id="haveRecipe" class="form-control mb-3" placeholder="Ingredients you have (e.g., flour, sugar, etc.)">
-    </div>
-
-    <!-- Toggle button to switch between recipeSelectionwant and recipeSelectionhave -->
-    <div class="form-check form-switch mb-3">
-      <input class="form-check-input" type="checkbox" id="toggleSelection">
-      <label class="form-check-label" for="toggleSelection">Recipe Selection Type</label>
-    </div>
-
-    <button class="btn btn-primary mb-3" onclick="submitRecipe('want')" id="submitBtnWant">Submit</button>
-
-    <button class="btn btn-primary mb-3" onclick="submitRecipe('have')" id="submitBtnHave" style="display: none;">Submit</button>
-
-    <button class="btn btn-primary mb-3" onclick="showPopup()">Explanation</button>
-
-    <div style="display: none;" id="loadingDiv">
-      <p>Loading...</p>
-      <div style="width:100%;height:0;padding-bottom:100%;position:relative;">
-        <!-- https://giphy.com/stickers/bowl-mix-bake-US7pjGYkp8Qjjf3A8h -->
-        <img src="../../static/whisking.gif" alt="Whisking" style="width: 100%; height: 100%; position: absolute;" />
-      </div>
-    </div>
-  </div>
-</div>>
+</div>
+>
 
 <div id="popupOverlay">
-  <div id="popup">
-    <h3>How This Works</h3>
-    <p>This is a recipe generator tool. You can use it to generate recipes based on what you want to make or what ingredients you have available.</p>
-    <p>Use the toggle button to switch between "I wanted to make ___ but don't have ___" and "I have ___, ___, etc," recipe selection types.</p>
-    <button onclick="closePopup()">Got it!</button>
-  </div>
+    <div id="popup">
+        <h3>How This Works</h3>
+        <p>This is a recipe generator tool. You can use it to generate recipes based on what you want to make or what
+            ingredients you have available.</p>
+        <p>Use the toggle button to switch between "I wanted to make ___ but don't have ___" and "I have ___, ___, etc,"
+            recipe selection types.</p>
+        <button onclick="closePopup()">Got it!</button>
+    </div>
 </div>
 
 <script>
 
-  function submitRecipe() {
-    // Hide the appropriate submit button and show the loading GIF and text
-    document.getElementById('submitBtnWant').style.display = 'none';
-    document.getElementById('submitBtnHave').style.display = 'none';
-    document.getElementById('loadingDiv').style.display = 'block';
+    function submitRecipe() {
+        // Hide the appropriate submit button and show the loading GIF and text
+        document.getElementById('submitBtnWant').style.display = 'none';
+        document.getElementById('submitBtnHave').style.display = 'none';
+        document.getElementById('loadingDiv').style.display = 'block';
 
-    const wanted = document.getElementById('wantedRecipe').value;
-    const ranOut = document.getElementById('ranOutRecipe').value;
-    const have = document.getElementById('haveRecipe').value;
+        const wanted = document.getElementById('wantedRecipe').value;
+        const ranOut = document.getElementById('ranOutRecipe').value;
+        const have = document.getElementById('haveRecipe').value;
 
-    let url;
-    let data;
-    if (document.getElementById('toggleSelection').checked) {
-      url = '/generate-recipes-have';
-      data = { have };
-    } else {
-      url = '/generate-recipes-want';
-      data = { wanted, ranOut };
-    }
+        let url;
+        let data;
+        if (document.getElementById('toggleSelection').checked) {
+            url = '/generate-recipes-have';
+            data = {have};
+        } else {
+            url = '/generate-recipes-want';
+            data = {wanted, ranOut};
+        }
 
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
             .then((response) => response.json())
             .then((data) => {
-              window.location.href = '/results';
+                window.location.href = '/results';
             })
             .catch((error) => console.error('Error:', error));
-  }
-
-
-  // Toggle the submit button based on the selection type
-  document.getElementById('toggleSelection').addEventListener('change', function() {
-    const wantRecipeBox = document.getElementById('wantRecipeBox');
-    const haveRecipeBox = document.getElementById('haveRecipeBox');
-
-    if (this.checked) {
-      document.getElementById('submitBtnWant').style.display = 'none';
-      document.getElementById('submitBtnHave').style.display = 'block';
-
-      wantRecipeBox.style.display = 'none';
-      haveRecipeBox.style.display = 'block';
-    } else {
-      document.getElementById('submitBtnWant').style.display = 'block';
-      document.getElementById('submitBtnHave').style.display = 'none';
-
-      wantRecipeBox.style.display = 'block';
-      haveRecipeBox.style.display = 'none';
     }
-  });
 
-  function showPopup() {
-    const popupOverlay = document.getElementById('popupOverlay');
-    const popupElement = document.getElementById('popup');
-    popupOverlay.style.display = 'block';
-    popupElement.style.display = 'block';
-  }
 
-  function closePopup() {
-    const popupOverlay = document.getElementById('popupOverlay');
-    const popupElement = document.getElementById('popup');
-    popupOverlay.style.display = 'none';
-    popupElement.style.display = 'none';
-    localStorage.setItem('popupShown', 'true');
-  }
+    // Toggle the submit button based on the selection type
+    document.getElementById('toggleSelection').addEventListener('change', function () {
+        const wantRecipeBox = document.getElementById('wantRecipeBox');
+        const haveRecipeBox = document.getElementById('haveRecipeBox');
 
-  document.addEventListener('DOMContentLoaded', function() {
-    if (!isPopupShown()) {
-      showPopup();
+        if (this.checked) {
+            document.getElementById('submitBtnWant').style.display = 'none';
+            document.getElementById('submitBtnHave').style.display = 'block';
+
+            wantRecipeBox.style.display = 'none';
+            haveRecipeBox.style.display = 'block';
+        } else {
+            document.getElementById('submitBtnWant').style.display = 'block';
+            document.getElementById('submitBtnHave').style.display = 'none';
+
+            wantRecipeBox.style.display = 'block';
+            haveRecipeBox.style.display = 'none';
+        }
+    });
+
+    function showPopup() {
+        const popupOverlay = document.getElementById('popupOverlay');
+        const popupElement = document.getElementById('popup');
+        popupOverlay.style.display = 'block';
+        popupElement.style.display = 'block';
     }
-  });
+
+    function closePopup() {
+        const popupOverlay = document.getElementById('popupOverlay');
+        const popupElement = document.getElementById('popup');
+        popupOverlay.style.display = 'none';
+        popupElement.style.display = 'none';
+        localStorage.setItem('popupShown', 'true');
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        if (!isPopupShown()) {
+            showPopup();
+        }
+    });
 </script>
 
 </body>

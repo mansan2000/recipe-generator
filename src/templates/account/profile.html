@@ -16,21 +16,24 @@
     h2 {
         color: white;
     }
+
     .ml-auto {
         margin-left: auto;
         font-weight: bolder;
         font-size: large;
     }
+
     .fw-bold {
         font-size: 2em;
     }
+
     ul.no-bullets {
         list-style: none;
         padding-left: 0;
     }
 
     .mt-3 {
-        color:rgba(7, 66, 244, 0.945);
+        color: rgba(7, 66, 244, 0.945);
         font-size: 20px;
         letter-spacing: 1px;
     }
@@ -55,7 +58,6 @@
     </ul>
 </div>
 
-<!-- Section: Profile Block -->
 <section class="text-center">
     <div class="container mt-4">
         <div class="row">
@@ -80,13 +82,17 @@
                                 {% endfor %}
                             </ul>
                             <div class="mb-3">
-                                <button id="editAllergies" class="btn btn-primary" onclick="toggleEditForm()" style="font-size: small">Edit Allergies</button>
+                                <button id="editAllergies" class="btn btn-primary" onclick="toggleEditForm()"
+                                        style="font-size: small">Edit Allergies
+                                </button>
                                 <form id="editForm" style="display: none;">
-                                    <!--                <label for="allergyInput">Enter Allergy:</label>-->
                                     <input type="text" id="allergyInput" name="allergyInput">
                                     <br>
-                                    <button type="button" class="btn btn-primary" onclick="editAllergy()" style="font-size: small; margin-top: 7px">confirm</button>
-                                    <p style="font-size: smaller">Enter in an allergy, if it is already listed it will be removed, if it is not listed it will be added</p>
+                                    <button type="button" class="btn btn-primary" onclick="editAllergy()"
+                                            style="font-size: small; margin-top: 7px">confirm
+                                    </button>
+                                    <p style="font-size: smaller">Enter in an allergy, if it is already listed it will
+                                        be removed, if it is not listed it will be added</p>
                                 </form>
                             </div>
                             <br>
@@ -120,7 +126,7 @@
         const newAllergy = allergyInput.value.trim();
 
         if (newAllergy !== '') {
-            const data = { allergy: newAllergy };
+            const data = {allergy: newAllergy};
 
             fetch('/editAllergies', {
                 method: 'POST',
