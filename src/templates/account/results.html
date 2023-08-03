@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
+<head>
+  <title>View Recipes</title>
+</head>
 
 <style>
   body {
@@ -69,37 +72,37 @@
 </section>
 
 <script>
-function saveRecipe(title) {
-  const button = event.target;
-  button.disabled = true;
-  
-  const cardBody = button.closest('.card-body');
-  const ingredients = cardBody.querySelector('pre').textContent;
-  
-  const xhr = new XMLHttpRequest();
+  function saveRecipe(title) {
+    const button = event.target;
+    button.disabled = true;
 
-  xhr.open('POST', '/save_recipe', true);
-  xhr.setRequestHeader('Content-type', 'application/json');
+    const cardBody = button.closest('.card-body');
+    const ingredients = cardBody.querySelector('pre').textContent;
 
-  xhr.onload = function () {
-    if (xhr.status === 200) {
-      console.log(xhr.responseText); 
-      console.log('Recipe saved successfully!');
-    } else {
-      console.error('Failed to save recipe.');
-      button.disabled = false;
-    }
-  };
+    const xhr = new XMLHttpRequest();
+
+    xhr.open('POST', '/save_recipe', true);
+    xhr.setRequestHeader('Content-type', 'application/json');
+
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        console.log(xhr.responseText);
+        console.log('Recipe saved successfully!');
+      } else {
+        console.error('Failed to save recipe.');
+        button.disabled = false;
+      }
+    };
 
     xhr.onerror = function () {
-    console.error('Network error occurred.');
-    button.disabled = false;
-  };
+      console.error('Network error occurred.');
+      button.disabled = false;
+    };
 
-  
-  const data = JSON.stringify({ title: title, ingredients: ingredients });
-  xhr.send(data);
-}
+
+    const data = JSON.stringify({ title: title, ingredients: ingredients });
+    xhr.send(data);
+  }
   // function saveRecipe(button) {
   //   // Get the card
   //   const card = button.closest('.card');
@@ -107,7 +110,7 @@ function saveRecipe(title) {
   //   // Hide the card
   //   card.style.display = 'none';
   //
-  //   // TODO: Add code to save the recipe to the database
+  //   // TODO: Get rid of this code?
   //   console.log("Need to save to the database:", card.querySelector('h3').innerText);
   // }
 </script>

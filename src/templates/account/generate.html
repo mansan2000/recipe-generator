@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
+<head>
+  <title>Generate Recipes</title>
+</head>
+
+<body>
 
 <style>
   body {
@@ -24,6 +29,41 @@
     color:rgba(7, 66, 244, 0.945);
     font-size: 20px;
     letter-spacing: 1px;
+  }
+
+  #popupOverlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+  }
+  #popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #17181e;
+    color: white;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  #popup h3 {
+    color: white;
+  }
+
+  #popup button {
+    background-color: rgba(7, 66, 244, 0.945);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
   }
 
 </style>
@@ -60,11 +100,11 @@
       }
     }
 
-  .ml-auto {
-    margin-left: auto;
-    font-weight: bolder;
-    font-size: large;
-  }
+    .ml-auto {
+      margin-left: auto;
+      font-weight: bolder;
+      font-size: large;
+    }
   </style>
 
   <div class="container py-4">
@@ -125,13 +165,14 @@
     <!-- Toggle button to switch between recipeSelectionwant and recipeSelectionhave -->
     <div class="form-check form-switch mb-3">
       <input class="form-check-input" type="checkbox" id="toggleSelection">
-      <label class="form-check-label" for="toggleSelection">Wanted to make... / I have...</label>
+      <label class="form-check-label" for="toggleSelection">Recipe Selection Type</label>
     </div>
 
-    <!-- Submit button for recipeSelectionwant -->
     <button class="btn btn-primary mb-3" onclick="submitRecipe('want')" id="submitBtnWant">Submit</button>
-    <!-- Submit button for recipeSelectionhave (initially hidden) -->
+
     <button class="btn btn-primary mb-3" onclick="submitRecipe('have')" id="submitBtnHave" style="display: none;">Submit</button>
+
+    <button class="btn btn-primary mb-3" onclick="showPopup()">Explanation</button>
 
     <div style="display: none;" id="loadingDiv">
       <p>Loading...</p>
@@ -142,6 +183,15 @@
     </div>
   </div>
 </div>>
+
+<div id="popupOverlay">
+  <div id="popup">
+    <h3>How This Works</h3>
+    <p>This is a recipe generator tool. You can use it to generate recipes based on what you want to make or what ingredients you have available.</p>
+    <p>Use the toggle button to switch between "I wanted to make ___ but don't have ___" and "I have ___, ___, etc," recipe selection types.</p>
+    <button onclick="closePopup()">Got it!</button>
+  </div>
+</div>
 
 <script>
 
@@ -155,20 +205,16 @@
     const ranOut = document.getElementById('ranOutRecipe').value;
     const have = document.getElementById('haveRecipe').value;
 
-    // Toggle between recipeSelectionwant and recipeSelectionhave based on the toggle state
     let url;
     let data;
     if (document.getElementById('toggleSelection').checked) {
-      // If the toggle is checked, call recipeSelectionhave
       url = '/generate-recipes-have';
       data = { have };
     } else {
-      // If the toggle is unchecked, call recipeSelectionwant
       url = '/generate-recipes-want';
       data = { wanted, ranOut };
     }
 
-    // Make a POST request to the server with the data
     fetch(url, {
       method: 'POST',
       headers: {
@@ -178,7 +224,6 @@
     })
             .then((response) => response.json())
             .then((data) => {
-              // Redirect to the results page after generating the recipe
               window.location.href = '/results';
             })
             .catch((error) => console.error('Error:', error));
@@ -191,24 +236,40 @@
     const haveRecipeBox = document.getElementById('haveRecipeBox');
 
     if (this.checked) {
-      // If "Use Recipe Selection Have" is checked, show the submit button for recipeSelectionhave
       document.getElementById('submitBtnWant').style.display = 'none';
       document.getElementById('submitBtnHave').style.display = 'block';
 
-      // Hide recipeSelectionwant inputs, show recipeSelectionhave inputs
       wantRecipeBox.style.display = 'none';
       haveRecipeBox.style.display = 'block';
     } else {
-      // If "Use Recipe Selection Have" is unchecked, show the submit button for recipeSelectionwant
       document.getElementById('submitBtnWant').style.display = 'block';
       document.getElementById('submitBtnHave').style.display = 'none';
 
-      // Show recipeSelectionwant inputs, hide recipeSelectionhave inputs
       wantRecipeBox.style.display = 'block';
       haveRecipeBox.style.display = 'none';
     }
   });
 
+  function showPopup() {
+    const popupOverlay = document.getElementById('popupOverlay');
+    const popupElement = document.getElementById('popup');
+    popupOverlay.style.display = 'block';
+    popupElement.style.display = 'block';
+  }
+
+  function closePopup() {
+    const popupOverlay = document.getElementById('popupOverlay');
+    const popupElement = document.getElementById('popup');
+    popupOverlay.style.display = 'none';
+    popupElement.style.display = 'none';
+    localStorage.setItem('popupShown', 'true');
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (!isPopupShown()) {
+      showPopup();
+    }
+  });
 </script>
 
 </body>

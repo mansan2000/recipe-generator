@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
+<head>
+  <title>Saved Recipes</title>
+</head>
 
 <style>
   body {
@@ -63,29 +66,29 @@
 
 
 <script>
-function deleteRecipe(title) {
-  const data = {
-    title: title
-  };
+  function deleteRecipe(title) {
+    const data = {
+      title: title
+    };
 
-  fetch('/delete-recipe', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  })
-  .then(response => {
-    if (response.ok) {
-      window.location.reload(true);
+    fetch('/delete-recipe', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+            .then(response => {
+              if (response.ok) {
+                window.location.reload(true);
 
-    }
-  })
-  .catch(error => {
-    console.error('Error:', error);
-    alert('An error occurred while trying to delete the recipe.');
-  });
-}
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              alert('An error occurred while trying to delete the recipe.');
+            });
+  }
 </script>
 
 {% endblock %}
