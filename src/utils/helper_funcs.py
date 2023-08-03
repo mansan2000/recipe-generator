@@ -23,7 +23,7 @@ def get_saved_recipes_from_database(user):
     dollarSign = "$"
     for recipe in allRows:
         if recipe.username == user:
-            recipeName = f"{dollarSign}{recipe.recipe_name}{dollarSign}"
+            recipeName = f"{dollarSign}{recipe.recipe_name}{dollarSign}:"
             full_recipe = recipeName + "\n" + recipe.instructions
             recipes_list.append(full_recipe)
     recipes_string = ""

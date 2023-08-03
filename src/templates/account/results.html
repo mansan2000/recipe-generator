@@ -2,117 +2,112 @@
 
 {% block content %}
 <head>
-  <title>View Recipes</title>
+    <title>View Recipes</title>
 </head>
 
 <style>
-  body {
-    background-image: url("../../static/slider-image2.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-  }
+    body {
+        background-image: url("../../static/slider-image2.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
 
-  h2 {
-    color: white;
-  }
-  .ml-auto {
-    margin-left: auto;
-    font-weight: bolder;
-    font-size: large;
-  }
-  .fw-bold {
-    font-size: 2em;
-  }
-  .mt-3 {
-    color:rgba(7, 66, 244, 0.945);
-    font-size: 20px;
-    letter-spacing: 1px;
-  }
+    h2 {
+        color: white;
+    }
+
+    .ml-auto {
+        margin-left: auto;
+        font-weight: bolder;
+        font-size: large;
+    }
+
+    .fw-bold {
+        font-size: 2em;
+    }
+
+    .mt-3 {
+        color: rgba(7, 66, 244, 0.945);
+        font-size: 20px;
+        letter-spacing: 1px;
+    }
 
 </style>
 
 
 <div class="container mt-3">
-  <ul class="nav nav-tabs d-flex">
-    <li class="nav-item">
-      <a class="nav-link" href="/generate-recipes">Generate Recipes</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link active" href="/results">View Recipes</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/saved-recipes">Saved Recipes</a>
-    </li>
-    <li class="ml-auto">
-      <a class="nav-link" href="/profile">Profile</a>
-    </li>
-  </ul>
+    <ul class="nav nav-tabs d-flex">
+        <li class="nav-item">
+            <a class="nav-link" href="/generate-recipes">Generate Recipes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/results">View Recipes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/saved-recipes">Saved Recipes</a>
+        </li>
+        <li class="ml-auto">
+            <a class="nav-link" href="/profile">Profile</a>
+        </li>
+    </ul>
 </div>
 
 
 <section class="text-center text-lg-start">
-  <div class="container py-4">
-    <h2 class="fw-bold mb-3">Generated Recipes</h2>
-    {% if recipes != undefined %}
-    <form id="recipeForm">
-      {% for title, recipe in recipes.items() %}
-      <div class="card cascading-right mb-4" style="background: hsla(0, 0%, 100%, 0.55); backdrop-filter: blur(30px);">
-        <div class="card-body p-3 shadow-5 text-center">
-          <pr class="fw-bold ">{{ title }}</pr>
-          <p>Ingredients:</p>
-          <pre>{{ recipe.Ingredients }}</pre>
-          <button type="button" class="btn btn-primary" onclick="saveRecipe('{{ title }}')">Save Recipe</button>
-        </div>
-      </div>
-      {% endfor %}
-    </form>
-    {% endif %}
-  </div>
+    <div class="container py-4">
+        <h2 class="fw-bold mb-3">Generated Recipes</h2>
+        {% if recipes != undefined %}
+        <form id="recipeForm">
+            {% for title, recipe in recipes.items() %}
+            <div class="card cascading-right mb-4"
+                 style="background: hsla(0, 0%, 100%, 0.55); backdrop-filter: blur(30px);">
+                <div class="card-body p-3 shadow-5 text-center">
+                    <pr class="fw-bold ">{{ title }}</pr>
+                    <p>Ingredients:</p>
+                    <pre>{{ recipe.Ingredients }}</pre>
+                    <button type="button" class="btn btn-primary" onclick="saveRecipe('{{ title }}')">Save Recipe
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </form>
+        {% endif %}
+    </div>
 </section>
 
 <script>
-  function saveRecipe(title) {
-    const button = event.target;
-    button.disabled = true;
+    function saveRecipe(title) {
+        const button = event.target;
+        button.disabled = true;
 
-    const cardBody = button.closest('.card-body');
-    const ingredients = cardBody.querySelector('pre').textContent;
+        const cardBody = button.closest('.card-body');
+        const ingredients = cardBody.querySelector('pre').textContent;
 
-    const xhr = new XMLHttpRequest();
+        const xhr = new XMLHttpRequest();
 
-    xhr.open('POST', '/save_recipe', true);
-    xhr.setRequestHeader('Content-type', 'application/json');
+        xhr.open('POST', '/save_recipe', true);
+        xhr.setRequestHeader('Content-type', 'application/json');
 
-    xhr.onload = function () {
-      if (xhr.status === 200) {
-        console.log(xhr.responseText);
-        console.log('Recipe saved successfully!');
-      } else {
-        console.error('Failed to save recipe.');
-        button.disabled = false;
-      }
-    };
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                console.log(xhr.responseText);
+                console.log('Recipe saved successfully!');
+            } else {
+                console.error('Failed to save recipe.');
+                button.disabled = false;
+            }
+        };
 
-    xhr.onerror = function () {
-      console.error('Network error occurred.');
-      button.disabled = false;
-    };
+        xhr.onerror = function () {
+            console.error('Network error occurred.');
+            button.disabled = false;
+        };
 
 
-    const data = JSON.stringify({ title: title, ingredients: ingredients });
-    xhr.send(data);
-  }
-  // function saveRecipe(button) {
-  //   // Get the card
-  //   const card = button.closest('.card');
-  //
-  //   // Hide the card
-  //   card.style.display = 'none';
-  //
-  //   // TODO: Get rid of this code?
-  //   console.log("Need to save to the database:", card.querySelector('h3').innerText);
-  // }
+        const data = JSON.stringify({title: title, ingredients: ingredients});
+        xhr.send(data);
+    }
 </script>
 
 {% endblock %}

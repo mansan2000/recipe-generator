@@ -2,93 +2,96 @@
 
 {% block content %}
 <head>
-  <title>Saved Recipes</title>
+    <title>Saved Recipes</title>
 </head>
 
 <style>
-  body {
-    background-image: url("../../static/slider-image2.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-  }
+    body {
+        background-image: url("../../static/slider-image2.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
 
-  h2 {
-    color: white;
-  }
-  .ml-auto {
-    margin-left: auto;
-    font-weight: bolder;
-    font-size: large;
-  }
-  .fw-bold {
-    font-size: 2em;
-  }
+    h2 {
+        color: white;
+    }
+
+    .ml-auto {
+        margin-left: auto;
+        font-weight: bolder;
+        font-size: large;
+    }
+
+    .fw-bold {
+        font-size: 2em;
+    }
 </style>
 
 <div class="container mt-3">
-  <ul class="nav nav-tabs d-flex" style="color: rgba(7, 66, 244, 0.945); font-size: 20px; letter-spacing: 1px;">
-    <li class="nav-item">
-      <a class="nav-link" href="/generate-recipes">Generate Recipes</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link " href="/results">View Recipes</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link active" href="/saved-recipes">Saved Recipes</a>
-    </li>
-    <li class="ml-auto">
-      <a class="nav-link" style ="font-size: 20px; letter-spacing: 1px;" href="/profile">Profile</a>
-    </li>
-  </ul>
+    <ul class="nav nav-tabs d-flex" style="color: rgba(7, 66, 244, 0.945); font-size: 20px; letter-spacing: 1px;">
+        <li class="nav-item">
+            <a class="nav-link" href="/generate-recipes">Generate Recipes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="/results">View Recipes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="/saved-recipes">Saved Recipes</a>
+        </li>
+        <li class="ml-auto">
+            <a class="nav-link" style="font-size: 20px; letter-spacing: 1px;" href="/profile">Profile</a>
+        </li>
+    </ul>
 </div>
 
 
 <section class="text-center text-lg-start">
-  <div class="container py-4">
-    <h2 class="fw-bold mb-3">Saved Recipes</h2>
-    <form id="savedRecipeForm">
-      {% if saved_recipes_data != None %}
-      {% for title, recipe in saved_recipes_data.items() %}
-      <div class="card cascading-right mb-4" style="background: hsla(0, 0%, 100%, 0.55); backdrop-filter: blur(30px);">
-        <div class="card-body p-3 shadow-5 text-center">
-          <pre class="fw-bold">{{ title }}</pre>
-          <p>Ingredients:</p>
-          <pre>{{ recipe.Ingredients }}</pre>
-          <button type="button" class="btn btn-primary" onclick="deleteRecipe('{{ title }}')">Delete</button>
-        </div>
-      </div>
-      {% endfor %}
-      {% endif %}
-    </form>
-  </div>
+    <div class="container py-4">
+        <h2 class="fw-bold mb-3">Saved Recipes</h2>
+        <form id="savedRecipeForm">
+            {% if saved_recipes_data != None %}
+            {% for title, recipe in saved_recipes_data.items() %}
+            <div class="card cascading-right mb-4"
+                 style="background: hsla(0, 0%, 100%, 0.55); backdrop-filter: blur(30px);">
+                <div class="card-body p-3 shadow-5 text-center">
+                    <pre class="fw-bold">{{ title }}</pre>
+                    <p>Ingredients:</p>
+                    <pre>{{ recipe.Ingredients }}</pre>
+                    <button type="button" class="btn btn-primary" onclick="deleteRecipe('{{ title }}')">Delete</button>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </form>
+    </div>
 </section>
 
 
 <script>
-  function deleteRecipe(title) {
-    const data = {
-      title: title
-    };
+    function deleteRecipe(title) {
+        const data = {
+            title: title
+        };
 
-    fetch('/delete-recipe', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
+        fetch('/delete-recipe', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
             .then(response => {
-              if (response.ok) {
-                window.location.reload(true);
+                if (response.ok) {
+                    window.location.reload(true);
 
-              }
+                }
             })
             .catch(error => {
-              console.error('Error:', error);
-              alert('An error occurred while trying to delete the recipe.');
+                console.error('Error:', error);
+                alert('An error occurred while trying to delete the recipe.');
             });
-  }
+    }
 </script>
 
 {% endblock %}
